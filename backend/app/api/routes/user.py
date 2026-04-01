@@ -9,7 +9,7 @@ from app.core.security import hash_password
 
 router = APIRouter()
 
-# 👤 CREATE USER (FIXED)
+# 👤 CREATE USER (FINAL FIXED)
 @router.post("/")
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
@@ -18,17 +18,24 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
 
+    # ✅ CREATE USER WITH ALL FIELDS
     db_user = User(
         name=user.name,
         email=user.email,
-        password=hash_password(user.password)   # 🔥 IMPORTANT
+        password=hash_password(user.password),
+        platform=user.platform,
+        location=user.location,
+        weekly_income=user.weekly_income   # ✅ ADDED
     )
 
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
 
-    return db_user
+    return {
+        "message": "User created successfully",
+        "user": db_user
+    }
 
 
 # 🔍 GET USER BY ID

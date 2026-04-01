@@ -3,8 +3,10 @@ from pydantic import BaseModel
 class UserCreate(BaseModel):
     name: str
     email: str
-    zone: str
-    weekly_income: float
+    password: str
+    platform: str     # ✅ ADD THIS
+    location: str     # ✅ ADD THIS
+    weekly_income: int
 
 class UserResponse(UserCreate):
     id: int

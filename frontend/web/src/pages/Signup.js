@@ -11,9 +11,12 @@ function Signup(){
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
+  const [platform,setPlatform] = useState("");
+  const [location,setLocation] = useState("");
+  const [weeklyIncome,setWeeklyIncome] = useState("");
   async function handleSignup(){
 
-    if(!name || !email || !password){
+    if(!name || !email || !password || !platform || !location || !weeklyIncome){
       alert("Please fill all fields");
       return;
     }
@@ -24,7 +27,10 @@ function Signup(){
         {
           name: name,
           email: email,
-          password: password
+          password: password,
+          platform: platform,
+          location: location,
+          weekly_income: Number(weeklyIncome)
         }
       );
 
@@ -104,6 +110,28 @@ function Signup(){
             placeholder="Password"
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
+          />
+
+          <input
+            className="input"
+            placeholder="Platform (Uber, Swiggy etc)"
+            value={platform}
+            onChange={(e)=>setPlatform(e.target.value)}
+          />
+
+          <input
+            className="input"
+            placeholder="Location"
+            value={location}
+            onChange={(e)=>setLocation(e.target.value)}
+          />
+
+          <input
+            className="input"
+            type="number"
+            placeholder="Weekly Income"
+            value={weeklyIncome}
+            onChange={(e)=>setWeeklyIncome(e.target.value)}
           />
 
           <button
